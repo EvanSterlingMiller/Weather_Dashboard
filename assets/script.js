@@ -1,9 +1,9 @@
-var api_key = "f6f240dd04aa0e94518d0a682320de93"
+const api_key = "f6f240dd04aa0e94518d0a682320de93"
 var city_name = ''
 
 var search_button = document.getElementById("search_button")
 search_button.addEventListener("click", function (){
-    var user_city = document.getElementById("user_input")
+    let user_city = document.getElementById("user_input")
 })
 
 $("#search_query").keypress(function(event){
@@ -22,9 +22,7 @@ $("#search_button").on("click", function(){
 
     var query_url = "placeholder" + city + api_key
 
-    $.ajax({
-        url: query_url,
-        method: "GET"
+    
     })
     .then(function (response) {
         console.log(response)
@@ -60,8 +58,4 @@ function get_current_conditions(response) {
 
 }
 
-function get_current_forcast () {
-    $.ajax({
-        url:
-    })
-}
+
