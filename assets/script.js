@@ -1,3 +1,4 @@
+//Setting constants
 const api_key = "f6f240dd04aa0e94518d0a682320de93";
 const searchForm = document.querySelector("#search-form");
 const cityInput = document.querySelector("#city-input");
@@ -12,28 +13,20 @@ const searchHistoryEl = document.querySelector("#search-history");
 
 const searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
 
-function renderSearchHistory() {
-    searchHistoryEl.innerHTML = "";
-    searchHistory.forEach((city) => {
-    let li = document.createElement("li");
-    li.textContent = city;
-    searchHistoryEl.appendChild(li);
-    });
-}
-
+//function to get the current weather
 function renderCurrentWeather(city, weather) {
     cityNameEl.textContent = `${city}`;
-    weatherIconEl.setAttribute(
-    "src",
-    `http://openweathermap.org/img/w/${weather.weather[0].icon}.png`
-    );
+    const { icon } = weather.weather[0];
+    weatherIconEl.setAttribute("src", `http://openweathermap.org/img/w/${icon}.png`);
     temperatureEl.textContent = `Temperature: ${weather.main.temp} °F`;
     humidityEl.textContent = `Humidity: ${weather.main.humidity}%`;
     windSpeedEl.textContent = `Wind Speed: ${weather.wind.speed} mph`;
 }
 
+// function to get the future weather
 function renderForecast(forecast) {
     forecastCardsEl.innerHTML = "";
+    //calls are for every 3 hours, the 8 makes the call for every 24 hours
     for (let i = 0; i < forecast.list.length; i += 8) {
     let forecastItem = forecast.list[i];
 
@@ -57,7 +50,16 @@ function renderForecast(forecast) {
     forecastCardsEl.appendChild(card);
     }
 }
-
+// function to show the search history on the side
+function renderSearchHistory() {
+    searchHistoryEl.innerHTML = "";
+    searchHistory.forEach((city) => {
+    let li = document.createElement("li");
+    li.textContent = city;
+    searchHistoryEl.appendChild(li);
+    });
+}
+// submit button
 searchForm.addEventListener("submit", (mainPage) => {
     mainPage.preventDefault();
     let city = cityInput.value.trim().toUpperCase();
